@@ -4,7 +4,8 @@ exports.getbfhl = (req, res) => {
 
 exports.add = (req, res) => {
   try {
-    let data = req.body.data.data || [];
+    let data = req.body.data || [];
+    console.log(data);
 
     if (!data) {
       res.status(200).json({
