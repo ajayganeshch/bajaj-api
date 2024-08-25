@@ -29,6 +29,10 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(xss());
 
+app.get("/", (req, res) => {
+  res.redirect("/api/bfhl");
+});
+
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();

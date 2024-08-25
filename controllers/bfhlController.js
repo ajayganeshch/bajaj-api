@@ -1,47 +1,54 @@
-const express = require("express");
-const morgan = require("morgan");
-const rateLimit = require("express-rate-limit");
-const helment = require("helmet");
-const xss = require("xss-clean");
-const cors = require("cors");
+exports.getbfhl = (req, res) => {
+  res.json({ operation_code: 1 });
+};
 
-const bfhlRouter = require("./routes/bfhlRoutes");
+exports.add = (req, res) => {
+  try {
+    let data = req.body.data || [];
+    console.log(data);
 
-const app = express();
+    if (!data) {
+      res.status(200).json({
+        is_success: false,
+        user_id: process.env.USER_ID,
+        email: process.env.EMAIL,
+        roll_number: process.env.ROLL_NUMBER,
+        numbers: [],
+        alphabets: [],
+        highest_lowercase_alphabet: [],
+      });
+    }
 
-app.use(helment());
+    const numbers = [];
+    const alphabets = [];
+    let highestLowercase = "";
 
-console.log(process.env.NODE_ENV, "from");
+    for (const element of data) {
+      const item = element;
 
-if (process.env.NODE_ENV == "development") app.use(morgan("dev"));
+      if (!isNaN(Number(item)) && item.trim() !== "") {
+        numbers.push(item);
+      } else if (/^[A-Za-z]$/.test(item)) {
+        alphabets.push(item);
 
-const limiter = rateLimit({
-  max: 1000,
-  windowMs: 60 * 60 * 1000,
-  message:
-    "Invalid Activity Detected Or Too Many Requests From this IP, Try Again in an Hour!",
-});
+        if (/[a-z]/.test(item)) {
+          if (item > highestLowercase) {
+            highestLowercase = item;
+          }
+        }
+      }
+    }
 
-app.use("/api", limiter);
-app.use(cors());
-
-app.use(express.json({ limit: "10kb" }));
-
-app.use(xss());
-
-app.get("/", (req, res) => {
-  res.redirect("/api/bfhl");
-});
-
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  next();
-});
-
-app.use("/api/bfhl", bfhlRouter);
-
-app.all("*", (req, res) => {
-  res.status(404).send(`Can't find path ${req.originalUrl} on the server`);
-});
-
-module.exports = app;
+    res.status(200).json({
+      is_success: true,
+      user_id: process.env.USER_ID,
+      email: process.env.EMAIL,
+      roll_number: process.env.ROLL_NUMBER,
+      numbers: numbers,
+      alphabets: alphabets,
+      highest_lowercase_alphabet: highestLowercase ? [highestLowercase] : [],
+    });
+  } catch (e) {
+    res.json({ is_success: false, error: error.message });
+  }
+};
