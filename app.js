@@ -30,7 +30,35 @@ app.use(express.json({ limit: "10kb" }));
 app.use(xss());
 
 app.get("/", (req, res) => {
-  res.redirect("/api/bfhl");
+  res.send(`<html>
+    <head>
+      <style>
+        .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .box {
+          width: 300px;
+          height: 200px;
+          background-color: #f2f2f2;
+          border: 1px solid #ccc;
+          padding: 20px;
+          text-align: center;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="box">
+          <h1>Welcome to Bajaj Backend API</h1>
+          <p>Frontend link: <a href="https://bajaj-frontend-ew1p.onrender.com">https://bajaj-frontend-ew1p.onrender.com</a></p>
+          <p>Api Endpoint: <a href="https://bajaj-api-2f8j.onrender.com/api/bfhl">https://bajaj-api-2f8j.onrender.com/api/bfhl</a></p>
+        </div>
+      </div>
+    </body>
+  </html>`);
 });
 
 app.use((req, res, next) => {
