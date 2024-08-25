@@ -33,19 +33,41 @@ app.get("/", (req, res) => {
   res.send(`<html>
     <head>
       <style>
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background-color: #f0f0f0;
+        }
         .container {
           display: flex;
           justify-content: center;
           align-items: center;
           height: 100vh;
+          padding: 20px;
         }
         .box {
-          width: 300px;
-          height: 200px;
-          background-color: #f2f2f2;
-          border: 1px solid #ccc;
-          padding: 20px;
+          width: 550px;
+          padding: 30px;
+          background-color: #ffffff;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           text-align: center;
+        }
+        h1 {
+          margin: 0;
+          font-size: 24px;
+          color: #333;
+        }
+        p {
+          margin: 10px 0;
+          color: #555;
+        }
+        a {
+          color: #007bff;
+          text-decoration: none;
+        }
+        a:hover {
+          text-decoration: underline;
         }
       </style>
     </head>
@@ -53,8 +75,10 @@ app.get("/", (req, res) => {
       <div class="container">
         <div class="box">
           <h1>Welcome to Bajaj Backend API</h1>
-          <p>Frontend link: <a href="https://bajaj-frontend-ew1p.onrender.com">https://bajaj-frontend-ew1p.onrender.com</a></p>
-          <p>Api Endpoint: <a href="https://bajaj-api-2f8j.onrender.com/api/bfhl">https://bajaj-api-2f8j.onrender.com/api/bfhl</a></p>
+          <br>
+          <p>Frontend link: <a href="https://bajaj-frontend-ew1p.onrender.com" target="_blank">https://bajaj-frontend-ew1p.onrender.com</a></p>
+          <br>
+          <p>API Endpoint: <a href="https://bajaj-api-2f8j.onrender.com/api/bfhl" target="_blank">https://bajaj-api-2f8j.onrender.com/api/bfhl</a></p>
         </div>
       </div>
     </body>
