@@ -9,9 +9,9 @@ exports.add = (req, res) => {
     if (!data) {
       res.status(200).json({
         is_success: false,
-        user_id: "ajay_ganesh_27122003",
-        email: "ganesh.srinagaajay2021@vitstudent.ac.in",
-        roll_number: "21BDS0269",
+        user_id: process.env.USER_ID,
+        email: process.env.EMAIL,
+        roll_number: process.env.ROLL_NUMBER,
         numbers: [],
         alphabets: [],
         highest_lowercase_alphabet: [],
@@ -40,9 +40,9 @@ exports.add = (req, res) => {
 
     res.status(200).json({
       is_success: true,
-      user_id: "ajay_ganesh_27122003",
-      email: "ganesh.srinagaajay2021@vitstudent.ac.in",
-      roll_number: "21BDS0269",
+      user_id: process.env.USER_ID,
+      email: process.env.EMAIL,
+      roll_number: process.env.ROLL_NUMBER,
       numbers: numbers,
       alphabets: alphabets,
       highest_lowercase_alphabet: highestLowercase ? [highestLowercase] : [],
